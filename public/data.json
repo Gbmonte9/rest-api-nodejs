@@ -1,0 +1,62 @@
+[
+  {
+    "id": "479accf4-39bd-4853-b0ed-f64f47a1a7cd",
+    "nome": "Fulano de Tal",
+    "email": "fulano@gmail.com",
+    "dt_cadastro": "2025-06-11T20:03:52.822Z"
+  },
+  {
+    "id": "35ae1696-2fe4-42e1-8da3-f2f3851a4f92",
+    "nome": "Marcos Mion",
+    "email": "marcos@gmail.com",
+    "dt_cadastro": "2025-06-11T20:03:52.822Z"
+  },
+  {
+    "id": "7593d791-4588-4c7e-af42-453fdbba2be5",
+    "nome": "Marcelo Tas",
+    "email": "marcelo@gmail.com",
+    "dt_cadastro": "2025-06-11T20:03:52.822Z"
+  },
+  {
+    "id": "a31d2462-3d6b-4632-a29b-7841e25ae6bf",
+    "nome": "Douglas de Oliveira",
+    "email": "douglas@gmail.com",
+    "dt_cadastro": "2025-06-11T20:03:52.822Z"
+  },
+  {
+    "id": "a6ade770-ff1d-4bc4-920f-615ab217969a",
+    "nome": "Cícero da Silva",
+    "email": "cicero@gmail.com",
+    "dt_cadastro": "2025-06-11T20:03:52.822Z"
+  },
+  {
+    "id": "bbbfbb12-c4e9-43df-9cac-2320d327fa13",
+    "nome": "Eusébio Chagas",
+    "email": "eusebio@gmail.com",
+    "dt_cadastro": "2025-06-11T20:03:52.822Z"
+  },
+  {
+    "id": "515e0395-8754-4bed-8ba4-82951be130f3",
+    "nome": "Tomas Souza",
+    "email": "tomas@gmail.com",
+    "dt_cadastro": "2025-06-11T20:03:52.822Z"
+  },
+  {
+    "id": "39d1fc26-983b-4222-8ab5-9898e9c723fb",
+    "nome": "Geraldo Soares",
+    "email": "geraldo@gmail.com",
+    "dt_cadastro": "2025-06-11T20:03:52.822Z"
+  },
+  {
+    "id": "ce8fa478-858b-43dd-ad6e-59cdbda44e15",
+    "nome": "Adilson Soares",
+    "email": "adilson@gmail.com",
+    "dt_cadastro": "2025-06-11T20:03:52.822Z"
+  },
+  {
+    "id": "bebcb7ee-fb9a-4569-a006-cc4e54977887",
+    "nome": "Roberto Lima",
+    "email": "roberto@gmail.com",
+    "dt_cadastro": "2025-06-11T20:03:52.822Z"
+  }
+]

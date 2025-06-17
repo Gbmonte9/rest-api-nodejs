@@ -5,6 +5,7 @@ const path = require('path');
 const { v4: uuidv4 } = require('uuid');
 const Chance = require('chance');
 const chance = new Chance();
+const pool = require('../pool');
 
 const fileDados = path.join(__dirname, '..', 'public', 'data.json');
 
@@ -12,13 +13,13 @@ const fileDados = path.join(__dirname, '..', 'public', 'data.json');
 router.get('/', async function(req, res, next) {
   
   try {
+
+    const pessoa = await pool.query('SELECT id, nome, email, dt_cadastro FROM dummy_data')
       
-    if (fs.existsSync(fileDados)) {
-      const fileData = await fs.promises.readFile(fileDados, 'utf-8');
-      const dados = JSON.parse(fileData);
-      res.json(dados);
+    if (pessoa) {
+      res.json(pessoa.rows);
     } else {
-      res.status(404).json({ erro: 'Arquivo data.json não encontrado' });
+        res.status(404).json({ message: 'Nome não encontrado' });
     }
 
   } catch (err) {
@@ -31,15 +32,14 @@ router.get('/nome/:pNome', async function(req, res, next) {
   
   try {
         
-    const name = req.params.pNome.toLowerCase();
-
-    const dataStr = await fs.promises.readFile(fileDados, 'utf-8');
-    const dados = JSON.parse(dataStr);
-
-    const pessoa = dados.find(d => d.nome.toLowerCase().includes(name));
+    const name = req.params.pNome.toLowerCase(); // Se for usar o LIKE excluir o toLowerCase();  
+         
+    //$1::text                                                           // O ILIKE ele não se importa se esta minuscula ou maiscula 
+    const pessoa = await pool.query('SELECT id, nome, email, dt_cadastro FROM dummy_data WHERE nome ILIKE $1::text', [`%${name}%`]);
+    console.log("pessoa ", pessoa);                                             
 
     if (pessoa) {
-      res.json(pessoa);
+      res.json(pessoa.rows);
     } else {
         res.status(404).json({ message: 'Nome não encontrado' });
     }
@@ -56,10 +56,14 @@ router.get('/email/:pEmail', async function(req, res, next) {
         
         const email = req.params.pEmail.toLowerCase();
 
-        const dataStr = await fs.promises.readFile(fileDados, 'utf-8');
-        const dados = JSON.parse(dataStr);
+        const pessoa = await pool.query('SELECT id, nome, email, dt_cadastro FROM dummy_data WHERE email ILIKE $1::text', [`%${email}%`]);
+        console.log("pessoa ", pessoa);                                             
 
-        const pessoa = dados.find(d => d.email.toLowerCase().includes(email));
+          if (pessoa) {
+            res.json(pessoa.rows);
+          } else {
+            res.status(404).json({ message: 'Nome não encontrado' });
+          }
 
         if (pessoa) {
             res.json(pessoa);
@@ -85,16 +89,10 @@ router.post('/', async function(req, res, next) {
       dt_cadastro: new Date().toISOString()
     };
 
-        
-    let dados = [];
-    if (fs.existsSync(fileDados)) {
-      const fileData = await fs.promises.readFile(fileDados, 'utf-8');
-      dados = JSON.parse(fileData);
-    }
-
-    dados.push(dadosNovo);
-
-    await fs.promises.writeFile(fileDados, JSON.stringify(dados, null, 2));
+    await pool.query(
+      'INSERT INTO dummy_data (id, nome, email, dt_cadastro) VALUES ($1, $2, $3, $4)',
+      [dadosNovo.id, dadosNovo.nome, dadosNovo.email, dadosNovo.dt_cadastro]
+    );
 
     res.status(201).json(dadosNovo);
 
@@ -102,6 +100,7 @@ router.post('/', async function(req, res, next) {
       console.error('Erro ao processar POST /:', err);
       res.status(500).json({ erro: 'Erro interno no servidor' });
     }
+
 });
 
 router.delete('/delete/:pId', async function(req, res, next) {
